@@ -30,6 +30,10 @@ mongoose
 
 app.use('/api/auth', auth);
 
+app.use('/api/auth', auth);
+
+
+
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

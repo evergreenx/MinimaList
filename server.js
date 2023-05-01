@@ -25,7 +25,7 @@ mongoose
   });
 
 
-  app.use(bodyParser.json());
+  app.use(express.json());
 // app.use("/api/auth/", auth);
 
 app.use('/api/auth', auth);

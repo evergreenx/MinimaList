@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post("/login", async (req, res) => {
   try {
+    console.log(req.body, "body");
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
@@ -53,5 +54,28 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/signup", async (req, res) => {
+ 
 
-module.exports = router
+  console.log(req, "body");
+  let user  = await User.findOne({email: req.body.email});
+
+  if(user){
+    return res.status(400).json({
+      message: "user already exists",
+      error: true,
+    });
+  }
+
+  else {
+    user = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password
+  });
+  await user.save();
+  res.send(user);
+  }
+});
+
+module.exports = router;

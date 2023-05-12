@@ -7,7 +7,9 @@ const User = require("../model/user");
 const requireAuth = require("../routes/requireAuth");
 
 const router = express.Router();
-const JWT_SECRET = "mysecretkey";
+const JWT_SECRET = process.env.JWT_SECRET;
+
+console.log(JWT_SECRET)
 
 let data = [
   {
@@ -26,10 +28,11 @@ let data = [
 
 router.post("/login", async (req, res) => {
   try {
-
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
+    
+console.log(JWT_SECRET , 'PROCESS')
 
     // if user is not found
     if (!user) {
@@ -54,7 +57,7 @@ router.post("/login", async (req, res) => {
       {
         user: user._id,
       },
-      JWT_SECRET,
+     process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
@@ -67,6 +70,8 @@ router.post("/login", async (req, res) => {
       email: user.email,
     });
   } catch (error) {
+
+    console.log(error);
     res.status(500).json({
       message: "something went wrong",
       error: true,
@@ -75,7 +80,6 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  console.log(req, "body");
   let user = await User.findOne({ email: req.body.email });
 
   const hashpassword = await bcrypt.hash(req.body.password, 10);
@@ -86,6 +90,29 @@ router.post("/signup", async (req, res) => {
       error: true,
     });
   } else {
+    // write validation of name , email and password
+
+    if (req.body.name == "") {
+      return res.status(400).json({
+        message: "name is required",
+        error: true,
+      });
+    }
+
+    if (req.body.email == "") {
+      return res.status(400).json({
+        message: "email is required",
+        error: true,
+      });
+    }
+
+    if (req.body.password == "") {
+      return res.status(400).json({
+        message: "password is required",
+        error: true,
+      });
+    }
+
     user = new User({
       name: req.body.name,
       email: req.body.email,
@@ -99,9 +126,7 @@ router.post("/signup", async (req, res) => {
 router.get("/protected", requireAuth, (req, res) => {
   //   res.json(data);
 
-  console.log(req.user, "user")
-  res.status(200).json({ message: "You are authorized",
-data : data
-});
+
+  res.status(200).json({ message: "You are authorized", data: data });
 });
 module.exports = router;

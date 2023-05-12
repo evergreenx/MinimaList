@@ -18,7 +18,7 @@ mongoose
     }
   )
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log("Mongo connected");
   })
   .catch((err) => {
     console.error(err);
@@ -36,5 +36,5 @@ app.use('/api/auth', auth);
 
 
 app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+  // console.log("Server is running on port 3000");
 });

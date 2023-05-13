@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../model/user");
-const requireAuth = require("../routes/requireAuth");
+const requireAuth = require("./requireAuth");
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;

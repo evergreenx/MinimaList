@@ -4,7 +4,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
-
 const app = express();
 
 // app.use(bodyParser.json());
@@ -24,16 +23,12 @@ mongoose
     console.error(err);
   });
 
-
-  app.use(express.json());
+app.use(express.json());
 // app.use("/api/auth/", auth);
 
-app.use('/api/auth', auth);
+app.use("/api/auth", auth);
 
-app.use('/api/auth', auth);
-
-
-
+app.use("/api/auth", auth);
 
 app.listen(3000, () => {
   // console.log("Server is running on port 3000");

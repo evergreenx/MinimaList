@@ -25,7 +25,7 @@ export const Button = ({
       sizeClass = "px-4 py-2 text-sm rounded-[12px]";
       break;
     case "large":
-      sizeClass = "px-6 py-3 text-[14.06px] w-full rounded-[12px]";
+      sizeClass = "px-6 py-4 text-[14.06px] w-full rounded-[12px]";
       break;
     case "fab":
       sizeClass = "px-6 py-3 text-[14.06px] rounded-full";
@@ -37,7 +37,7 @@ export const Button = ({
 
   return (
     <button
-      className={`bg-brandBlack hover:bg-black text-white font-bold ${sizeClass}`}
+      className={`bg-brandBlack hover:bg-black shadow-black text-white font-bold ${sizeClass}`}
       disabled={disable}
       onClick={onClick}
       type={type}

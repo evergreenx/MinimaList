@@ -14,10 +14,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} h-screen  flex justify-center flex-col items-center`}
-      >
-        {children}
+      <body className={`${inter.className} `}>
+        <div className="  grid lg:grid-cols-3 grid-cols-1 p-5   ">
+          <div className="left__side hidden lg:block bg-blue-200 w-full h-95v rounded-xl  "></div>
+
+          <div className="right__side lg:col-span-2  w-full bg-white">
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );

@@ -23,7 +23,7 @@ export const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <div className="first-letter:">
-      <label htmlFor={id} className="my-10">
+      <label htmlFor={id} className="my-10 text-gray-500">
         {label}
       </label>
       <input

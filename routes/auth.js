@@ -1,3 +1,5 @@
+
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -9,7 +11,8 @@ const requireAuth = require("../routes/requireAuth");
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 
-console.log(JWT_SECRET)
+console.log(JWT_SECRET);
+console.log(JWT_SECRET);
 
 let data = [
   {
@@ -31,8 +34,8 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    
-console.log(JWT_SECRET , 'PROCESS')
+
+    console.log(JWT_SECRET, "PROCESS");
 
     // if user is not found
     if (!user) {
@@ -57,7 +60,7 @@ console.log(JWT_SECRET , 'PROCESS')
       {
         user: user._id,
       },
-     process.env.JWT_SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
@@ -70,7 +73,6 @@ console.log(JWT_SECRET , 'PROCESS')
       email: user.email,
     });
   } catch (error) {
-
     console.log(error);
     res.status(500).json({
       message: "something went wrong",
@@ -125,7 +127,6 @@ router.post("/signup", async (req, res) => {
 
 router.get("/protected", requireAuth, (req, res) => {
   //   res.json(data);
-
 
   res.status(200).json({ message: "You are authorized", data: data });
 });

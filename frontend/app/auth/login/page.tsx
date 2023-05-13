@@ -1,9 +1,12 @@
+
+'use client';
 import { LoginForm } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 import { Formik, FormikHelpers, FormikProps, Field, FieldProps } from "formik";
+import { motion } from "framer-motion";
 
 interface MyFormValues {
   email: string;
@@ -16,28 +19,55 @@ function Page() {
     password: "",
   };
   return (
-    <div className=" flex justify-center items-center m-auto py-24 flex-col lg:w-[50%] lg:px-10  w-full">
-      <div className="welcome__text text-center">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+      className=" flex justify-center items-center m-auto py-24 flex-col lg:w-[50%] lg:px-10  w-full"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="welcome__text text-center"
+      >
         <h1 className="text-4xl font-bold ">Welcome back</h1>
-
         <p className="text-gray-400 py-4">
           Welcome back, please enter your details
         </p>
-      </div>
-      <div className=" border-2 rounded-lg p-2 flex items-center justify-center space-x-4 w-full cursor-pointer ">
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className=" border-2 rounded-lg p-2 flex items-center justify-center space-x-4 w-full cursor-pointer "
+      >
         <SVG />
         <p className="  ">Log in with Google</p>
-      </div>
+      </motion.div>
 
-      <LoginForm />
+      {/* <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+      > */}
+        <LoginForm />
+      {/* </motion.div> */}
 
-      <p className="text-gray-400 py-4">
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
+        className="text-gray-400 py-4"
+      >
         Dont have an account?{" "}
         <Link className="font-bold text-black" href={"/auth/signup"}>
           Sign up for free
         </Link>
-      </p>
-    </div>
+      </motion.p>
+    </motion.div>
   );
 }
 

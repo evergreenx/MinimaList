@@ -11,12 +11,20 @@ import {
   Field,
   FieldProps,
 } from "formik";
+import { motion } from "framer-motion";
 
 export const LoginForm = () => {
   // form molecule
 
   return (
-    <div className="bg-white w-full">
+     <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 0.6 }}
+    className="bg-white w-full"
+  > 
+  
+
       <form>
         <div className="email_container py-10">
           <Input
@@ -48,7 +56,7 @@ export const LoginForm = () => {
           </Button>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

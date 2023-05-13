@@ -1,4 +1,12 @@
 import React, { ChangeEvent } from "react";
+import {
+  Formik,
+  FormikHelpers,
+  FormikProps,
+  Form,
+  Field,
+  FieldProps,
+} from "formik";
 
 interface InputProps {
   id: string;
@@ -26,16 +34,12 @@ export const Input: React.FC<InputProps> = ({
       <label htmlFor={id} className="my-10 text-gray-500">
         {label}
       </label>
-      <input
+      <Field
         id={id}
-        className={` ${className}`}
+        name={id}
+        className={`${className}`}
         type={type}
         placeholder={placeholder}
-        value={value}
-        onChange={(event) => {
-          if (!setter) return;
-          setter(event.target.value);
-        }}
         disabled={disabled}
       />
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Input } from "@/components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LoginFormValues, SignupFormValues } from "../../../interface";
 
 import {
@@ -19,12 +19,16 @@ import axios from "axios";
 
 import { useSearchParams } from "next/navigation";
 
-export const LoginForm = () => {
+export const LoginForm = ({ status, session }: any) => {
   const searchParams = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   const callbackUrl = searchParams.get("callbackUrl");
-  // form molecule
-  const initialValues: LoginFormValues = { email: "", password: "" };
+  // signin form molecule
+  const initialValues: LoginFormValues = {
+    email: "test@test.com",
+    password: "password123",
+  };
 
   return (
     <motion.div
@@ -36,12 +40,17 @@ export const LoginForm = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
+          setIsLoading(true);
           signIn("credentials", {
             email: values.email,
             password: values.password,
-            // redirect: false,
+
             callbackUrl: "/",
-          });
+          })
+            .then((res) => {})
+            .finally(() => {
+              setIsLoading(false);
+            });
 
           actions.setSubmitting(false);
         }}
@@ -53,27 +62,25 @@ export const LoginForm = () => {
               placeholder="Email"
               type="email"
               id="email"
-              // setter={() => {}}
               value={""}
-              className="w-full border-2 border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+              className="w-full border-2 border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
             />
           </div>
 
           <div className="password__container">
             <Input
-              label="password"
+              label="Password"
               placeholder="password"
-              className="w-full border-2 border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+              className="w-full border-2 border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
               type="password"
               id="password"
-              // setter={() => {}}
               value={""}
             />
           </div>
 
           <div className="button__container my-10">
             <Button size="large" type="submit">
-              Login
+              {isLoading ? "Getting in..." : "Sign in"}
             </Button>
           </div>
         </Form>
@@ -84,7 +91,7 @@ export const LoginForm = () => {
 
 export const SignUpForm = () => {
   const initialValues: SignupFormValues = { name: "", email: "", password: "" };
-  // form molecule
+  //signup form molecule
 
   return (
     <motion.div

@@ -4,13 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 function Page() {
-  const { data: session, status } = useSession({});
+  const { data: session, status } = useSession();
+
+  const router = useRouter();
 
   console.log({ session, status });
+
+  if (session) {
+    router.push("/");
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -41,13 +49,7 @@ function Page() {
         <p className="  ">Log in with Google</p>
       </motion.div>
 
-      {/* <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-      > */}
-      <LoginForm />
-      {/* </motion.div> */}
+      <LoginForm session={session} status={status} />
 
       <motion.p
         initial={{ opacity: 0, y: 20 }}

@@ -26,9 +26,9 @@ export const FabButton = () => {
   return (
     <motion.div className="fab__container flex justify-end p-4 right-0 bottom-0 absolute "
     
-    transition={{ duration: 0.5 }}
-    initial={{ opacity: 0, y: 0 }}
+    initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay: 0.5 }}
     >
       <ToastDemo setOpen={setOpen} open={open}
       title ={'calm down, this is just a demo , feature coming soon 😁'}

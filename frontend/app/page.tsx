@@ -29,10 +29,10 @@ export default function Home() {
           {session && (
             <>
    
-              <h1 className="py-2 font-extrabold">
+              <h1 className="py-2 text-xs font-extrabold">
                 username : {session?.user?.name}
               </h1>
-              <h1 className="py-2 font-extrabold">
+              <h1 className="py-2 text-xs font-extrabold">
                 email: {session?.user?.email}
               </h1>
               <motion.div

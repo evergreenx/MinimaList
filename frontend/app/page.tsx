@@ -28,7 +28,7 @@ export default function Home() {
         >
           {session && (
             <>
-              <ToastDemo setOpen={setOpen} open={open} />
+   
               <h1 className="py-2 font-extrabold">
                 username : {session?.user?.name}
               </h1>

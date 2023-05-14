@@ -1,10 +1,20 @@
+"use client";
+
 import { Button } from "@/components";
 import Link from "next/link";
 import React from "react";
+import { useSession } from "next-auth/react";
 
-const page = () => {
+const Page = () => {
+  const { data: session, status } = useSession({
+    required: true,
+
+    
+  });
+
+  console.log(session);
   return (
-    <div>
+    <div className="p-3">
       <Button size="large" type="submit">
         <Link href="/auth/login">Login</Link>
       </Button>
@@ -12,6 +22,4 @@ const page = () => {
   );
 };
 
-page.propTypes = {};
-
-export default page;
+export default Page;

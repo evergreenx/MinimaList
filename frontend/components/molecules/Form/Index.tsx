@@ -14,7 +14,15 @@ import {
 } from "formik";
 import { motion } from "framer-motion";
 
+import { useSession, signIn } from "next-auth/react";
+import axios from "axios";
+
+import { useSearchParams } from "next/navigation";
+
 export const LoginForm = () => {
+  const searchParams = useSearchParams();
+
+  const callbackUrl = searchParams.get("callbackUrl");
   // form molecule
   const initialValues: LoginFormValues = { email: "", password: "" };
 
@@ -29,8 +37,21 @@ export const LoginForm = () => {
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           console.log({ values, actions });
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
+
+          signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            // redirect: false,
+            // callbackUrl: callbackUrl
+          });
+
+          // axios
+          //   .post("https://minimallist.onrender.com/api/auth/login", values)
+          //   .then((res) => {
+          //     console.log(res);
+          //   });
+
+          // actions.setSubmitting(false);
         }}
       >
         <Form>
@@ -95,7 +116,6 @@ export const SignUpForm = () => {
               placeholder="name"
               type="text"
               id="name"
-         
               value={""}
               className="w-full border-2 border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
             />
@@ -106,7 +126,6 @@ export const SignUpForm = () => {
               placeholder="Email"
               type="email"
               id="email"
-        
               value={""}
               className="w-full border-2 border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
             />
@@ -119,7 +138,6 @@ export const SignUpForm = () => {
               className="w-full border-2 border-gray-200 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               type="password"
               id="password"
-            
               value={""}
             />
           </div>

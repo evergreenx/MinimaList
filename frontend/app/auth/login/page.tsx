@@ -1,23 +1,16 @@
-
-'use client';
+"use client";
 import { LoginForm } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
-import { Formik, FormikHelpers, FormikProps, Field, FieldProps } from "formik";
 import { motion } from "framer-motion";
 
-interface MyFormValues {
-  email: string;
-  password: string;
-}
+import { useSession, signIn } from "next-auth/react";
 
 function Page() {
-  const initialValues: MyFormValues = {
-    email: "",
-    password: "",
-  };
+  const { data: session, status } = useSession({});
+
+  console.log({ session, status });
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -53,7 +46,7 @@ function Page() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
       > */}
-        <LoginForm />
+      <LoginForm />
       {/* </motion.div> */}
 
       <motion.p

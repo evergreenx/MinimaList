@@ -36,22 +36,14 @@ export const LoginForm = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
-          console.log({ values, actions });
-
           signIn("credentials", {
             email: values.email,
             password: values.password,
             // redirect: false,
-            // callbackUrl: callbackUrl
+            callbackUrl: "/",
           });
 
-          // axios
-          //   .post("https://minimallist.onrender.com/api/auth/login", values)
-          //   .then((res) => {
-          //     console.log(res);
-          //   });
-
-          // actions.setSubmitting(false);
+          actions.setSubmitting(false);
         }}
       >
         <Form>

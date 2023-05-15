@@ -1,4 +1,5 @@
 const auth = require("./routes/auth");
+const task = require("./routes/tasks");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -28,7 +29,7 @@ app.use(express.json());
 
 app.use("/api/auth", auth);
 
-app.use("/api/auth", auth);
+app.use("/api/tasks", task);
 
 app.listen(3000, () => {
   // console.log("Server is running on port 3000");

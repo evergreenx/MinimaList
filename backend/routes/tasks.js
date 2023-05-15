@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../model/user");
+const Task = require("../model/task");
 const requireAuth = require("./requireAuth");
 
 const router = express.Router();
@@ -84,50 +84,34 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// signup route
-router.post("/signup", async (req, res) => {
-  let user = await User.findOne({ email: req.body.email });
-
-  const hashpassword = await bcrypt.hash(req.body.password, 10);
-
-  if (user) {
-    return res.status(400).json({
-      message: "user already exists",
-      error: true,
-    });
-  } else {
-    // write validation of name , email and password
-
-    if (req.body.name == "") {
-      return res.status(400).json({
-        message: "name is required",
+router.post("/add", requireAuth, async (req, res) => {
+    try {
+      const { title, hour, isToday } = req.body;
+  
+      // Create a new instance of the Todo model
+      const todo = new Task({
+        title,
+        hour,
+        isToday,
+        userId: req.user._id,
+      });
+  
+      // Save the todo to the database
+      await todo.save();
+  
+      res.status(201).json({
+        message: "Todo created successfully",
+        todo,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        message: "Something went wrong",
         error: true,
       });
     }
-
-    if (req.body.email == "") {
-      return res.status(400).json({
-        message: "email is required",
-        error: true,
-      });
-    }
-
-    if (req.body.password == "") {
-      return res.status(400).json({
-        message: "password is required",
-        error: true,
-      });
-    }
-
-    user = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: hashpassword,
-    });
-    await user.save();
-    res.send(user);
-  }
-});
+  });
+  
 
 // protected route
 

@@ -25,7 +25,7 @@ let data = [
   },
 ];
 
-// login route
+// add task route
 
 router.post("/add", requireAuth, async (req, res) => {
   console.log(req.body);
@@ -37,7 +37,7 @@ router.post("/add", requireAuth, async (req, res) => {
       title,
       hour,
       isToday,
-      userId: req.userId,
+      userId: req.query.userId,
     });
 
     // Save the todo to the database
@@ -56,9 +56,19 @@ router.post("/add", requireAuth, async (req, res) => {
   }
 });
 
+// get all task route by userId
 router.get("/task", requireAuth, async (req, res) => {
   try {
-    const todos = await Task.find({ userId: req.body.userId });
+    const todos = await Task.find({ userId: req.query.userId });
+
+    // check if userId is not found
+
+    if (!todos) {
+      return res.status(404).json({
+        message: "No todos found",
+        error: true,
+      });
+    }
 
     res.status(200).json({
       todos,
@@ -70,14 +80,6 @@ router.get("/task", requireAuth, async (req, res) => {
       error: true,
     });
   }
-});
-
-// protected route
-
-router.get("/protected", requireAuth, (req, res) => {
-  // res.json(data);
-
-  res.status(200).json({ message: "You are authorized", data: data });
 });
 
 module.exports = router;

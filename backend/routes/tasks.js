@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -10,9 +9,6 @@ const requireAuth = require("./requireAuth");
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
-
-console.log(JWT_SECRET);
-console.log(JWT_SECRET);
 
 let data = [
   {
@@ -29,98 +25,59 @@ let data = [
   },
 ];
 
-
 // login route
 
-router.post("/login", async (req, res) => {
+router.post("/add", requireAuth, async (req, res) => {
+  console.log(req.body);
   try {
-    const { email, password } = req.body;
+    const { title, hour, isToday, userId } = req.body;
 
-    const user = await User.findOne({ email });
+    // Create a new instance of the Todo model
+    const todo = new Task({
+      title,
+      hour,
+      isToday,
+      userId: req.userId,
+    });
 
-    console.log(JWT_SECRET, "PROCESS");
+    // Save the todo to the database
+    await todo.save();
 
-    // if user is not found
-    if (!user) {
-      return res.status(401).json({
-        message: "invalid email or password",
-        error: true,
-      });
-    }
-
-    // if user is found
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) {
-      return res.status(401).json({
-        message: "invalid email or password",
-        error: true,
-      });
-    }
-
-    // create token
-
-    const token = jwt.sign(
-      {
-        user: user._id,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
-
-    res.status(200).json({
-      message: "user logged in successfully",
-
-      token,
-      id: user._id,
-      name: user.name,
-      email: user.email,
+    res.status(201).json({
+      message: "Todo created successfully",
+      todo,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: "something went wrong",
+      message: "Something went wrong",
       error: true,
     });
   }
 });
 
-router.post("/add", requireAuth, async (req, res) => {
-    try {
-      const { title, hour, isToday } = req.body;
-  
-      // Create a new instance of the Todo model
-      const todo = new Task({
-        title,
-        hour,
-        isToday,
-        userId: req.user._id,
-      });
-  
-      // Save the todo to the database
-      await todo.save();
-  
-      res.status(201).json({
-        message: "Todo created successfully",
-        todo,
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({
-        message: "Something went wrong",
-        error: true,
-      });
-    }
-  });
-  
+router.get("/task", requireAuth, async (req, res) => {
+  try {
+    const todos = await Task.find({ userId: req.userId });
+
+    res.status(200).json({
+      todos,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Something went wrong",
+      error: true,
+    });
+  }
+});
 
 // protected route
 
 router.get("/protected", requireAuth, (req, res) => {
-  //   res.json(data);
+  // res.json(data);
 
   res.status(200).json({ message: "You are authorized", data: data });
 });
-
-
 
 module.exports = router;

@@ -29,7 +29,7 @@ app.use(express.json());
 
 app.use("/api/auth", auth);
 
-app.use("/api/tasks", task);
+app.use("/api/task", task);
 
 app.listen(3000, () => {
   // console.log("Server is running on port 3000");

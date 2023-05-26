@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -7,6 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../model/user");
 const requireAuth = require("./requireAuth");
+const Task = require("../model/task");
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -28,7 +28,6 @@ let data = [
     email: "",
   },
 ];
-
 
 // login route
 
@@ -134,9 +133,26 @@ router.post("/signup", async (req, res) => {
 router.get("/protected", requireAuth, (req, res) => {
   //   res.json(data);
 
+
+
   res.status(200).json({ message: "You are authorized", data: data });
 });
 
+// router.get("/task", requireAuth, async (req, res) => {
+//   console.log(req);
+//   try {
+//     const todos = await Task.find({ userId: req.user._id });
 
+//     res.status(200).json({
+//       todos,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({
+//       message: "Something went wrong",
+//       error: true,
+//     });
+//   }
+// });
 
 module.exports = router;

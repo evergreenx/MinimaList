@@ -58,7 +58,7 @@ router.post("/add", requireAuth, async (req, res) => {
 
 router.get("/task", requireAuth, async (req, res) => {
   try {
-    const todos = await Task.find({ userId: req.userId });
+    const todos = await Task.find({ userId: req.body.userId });
 
     res.status(200).json({
       todos,

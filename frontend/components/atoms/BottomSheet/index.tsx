@@ -23,7 +23,7 @@ const Index = ({
       open={openBottomSheet}
       onDismiss={handleDismissSheet}
       snapPoints={({ maxHeight }) => [maxHeight / 2, maxHeight]}
-      maxHeight={500}
+      maxHeight={650}
       header={
         <h1 className="font-semibold text-[17px] text-[#000000]">Task</h1>
       }

@@ -24,10 +24,10 @@ const Index = () => {
       <div className="task__time mt-[30px] flex space-x-[17px] items-center">
         <label className="font-semibold text-[20px] text-[#000000]">Hour</label>
         <TimePicker
-          onChange={onChange}
+onChange={()=>onChange}
           value={value}
           clearIcon={null}
-          autoFocus={true}
+
           className={
             "border-0  text-[#3C3C43] outline-none text-sm font-normal border-[#000000] p-2 "
           }

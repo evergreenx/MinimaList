@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.react-time-picker__inputGroup__amPm {
+    /* display: none; */
+    border-radius: 8.91px;
+    width: 58px;
+    height: 37.5px;
+    background-color: rgba(118, 118, 128, 0.12); ;
+    font-size: 15px;
+    font-weight: 600;
+    color : #000000
+}

@@ -1,8 +1,11 @@
 import { Button } from "@/components";
 import { SwitchToday } from "@/components/atoms/Switch";
-import React from "react";
-
+import React, { useState } from "react";
+import TimePicker from "react-time-picker";
+import "react-time-picker/dist/TimePicker.css";
+import "react-clock/dist/Clock.css";
 const Index = () => {
+  const [value, onChange] = useState("10:00");
   return (
     <div className="p-3">
       <h1 className="text-[34px] font-bold  text-[#000000] tracking-tighter mt-[37px]">
@@ -20,10 +23,14 @@ const Index = () => {
 
       <div className="task__time mt-[30px] flex space-x-[17px] items-center">
         <label className="font-semibold text-[20px] text-[#000000]">Hour</label>
-        <input
-          type="text"
-          placeholder="Enter task name"
-          className="border-0  text-[#3C3C43] outline-none text-sm font-normal border-b-[0.3px] border-[#000000] p-2 w-full"
+        <TimePicker
+          onChange={onChange}
+          value={value}
+          clearIcon={null}
+          autoFocus={true}
+          className={
+            "border-0  text-[#3C3C43] outline-none text-sm font-normal border-[#000000] p-2 "
+          }
         />
       </div>
 
@@ -39,20 +46,10 @@ const Index = () => {
         <SwitchToday />
       </div>
 
-  
-
-
-      
-
-
-
-      <Button size="large">
-     Done
-      </Button>
-
+      <Button size="large">Done</Button>
 
       <p className="text-[#3C3C43] font-normal tracking-tighter text-[13px] mt-[14px]">
-      If you disable today, the task will be considered as tomorrow
+        If you disable today, the task will be considered as tomorrow
       </p>
     </div>
   );

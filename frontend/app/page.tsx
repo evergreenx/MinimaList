@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, ToastDemo } from "@/components";
+import { Button } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";

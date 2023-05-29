@@ -9,17 +9,22 @@ import { motion } from "framer-motion";
 import { signOut } from "next-auth/react";
 import React from "react";
 import { FabButton } from "@/components/molecules/FabButton/Index";
+import AddTask from "@/components/organisms/AddTask/Index";
 
 export default function Home() {
   const { data: session, status } = useSession({
     required: true,
   });
 
-  const [open, setOpen] = React.useState(false);
+  const [openBottomSheet, setOpenBottomSheet] = React.useState(false);
 
   return (
     <div className="h-full">
-      <main className="flex justify-center  p-24 bg-white">
+      <main className="flex justify-center  p-24 ">
+        <AddTask
+          openBottomSheet={openBottomSheet}
+          setOpenBottomSheet={setOpenBottomSheet}
+        />
         <motion.div
           className="userdetails py-10"
           initial={{ opacity: 0 }}
@@ -28,7 +33,6 @@ export default function Home() {
         >
           {session && (
             <>
-   
               <h1 className="py-2 text-xs font-extrabold">
                 username : {session?.user?.name}
               </h1>
@@ -56,7 +60,10 @@ export default function Home() {
 
       {/* fab button */}
 
-      <FabButton />
+      <FabButton
+        openBottomSheet={openBottomSheet}
+        setOpenBottomSheet={setOpenBottomSheet}
+      />
     </div>
   );
 }

@@ -1,10 +1,36 @@
 import React, { useState } from "react";
-import { BottomSheet } from "react-spring-bottom-sheet";
+import { BottomSheet, BottomSheetRef } from "react-spring-bottom-sheet";
 import "react-spring-bottom-sheet/dist/style.css";
 
-const Index = () => {
-  const [open, setOpen] = useState(false);
-  return <BottomSheet open={open}>My awesome content here</BottomSheet>;
+interface BottomSheetProps {
+  openBottomSheet: boolean;
+  setOpenBottomSheet: (openBottomSheet: boolean) => void;
+  children: React.ReactNode;
+}
+
+const Index = ({
+  openBottomSheet,
+  setOpenBottomSheet,
+  children,
+}: BottomSheetProps) => {
+  const handleDismissSheet = () => {
+    setOpenBottomSheet(false);
+  };
+
+  //   const [open, setOpen] = useState(false);
+  return (
+    <BottomSheet
+      open={openBottomSheet}
+      onDismiss={handleDismissSheet}
+      snapPoints={({ maxHeight }) => [maxHeight / 2, maxHeight]}
+      maxHeight={500}
+      header={
+        <h1 className="font-semibold text-[17px] text-[#000000]">Task</h1>
+      }
+    >
+      {children}
+    </BottomSheet>
+  );
 };
 
 export default Index;

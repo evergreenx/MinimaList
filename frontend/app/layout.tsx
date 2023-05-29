@@ -1,17 +1,14 @@
 import Provider from "@/components/Providers";
 import "./globals.css";
-import { Inter , Poppins , Oswald , Roboto   } from "next/font/google";
+import { Inter, Poppins, Oswald, Roboto } from "next/font/google";
 
-
-
-const oswald = Oswald({ subsets: ['latin'] });
+const oswald = Oswald({ subsets: ["latin"] });
 // const poppins = Poppins({ subsets: ['latin'] });
 
 const poppins = Poppins({
-  weight: '400',
-  subsets: ['latin'],
+  weight: "400",
+  subsets: ["latin"],
 });
-
 
 export const metadata = {
   title: "Create Next App",
@@ -25,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className}  bg-white`}>
+      <body className={`${poppins.className}  bg-[#F7F8FA] h-screen`}>
         <Provider>{children}</Provider>
       </body>
     </html>

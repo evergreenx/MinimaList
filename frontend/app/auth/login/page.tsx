@@ -13,7 +13,6 @@ function Page() {
 
   const router = useRouter();
 
-  console.log({ session, status });
 
   if (session) {
     router.push("/");

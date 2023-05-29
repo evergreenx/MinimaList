@@ -3,15 +3,20 @@ import { ToastDemo } from "@/components/organisms/Toast/Index";
 import React from "react";
 import { motion, useAnimation } from "framer-motion";
 
-export const FabButton = () => {
-  const [open, setOpen] = React.useState(false);
+interface FabButtonProps {
+  openBottomSheet: any;
+  setOpenBottomSheet : any;
+}
+
+export const FabButton = ({ openBottomSheet , setOpenBottomSheet }: FabButtonProps) => {
+  // const [open, setOpen] = React.useState(false);
 
   const fabControls = useAnimation();
 
   const handleFabClick = () => {
     fabControls.start("shake");
 
-    setOpen(true);
+    setOpenBottomSheet(true);
   };
 
   const fabVariants = {
@@ -28,18 +33,18 @@ export const FabButton = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, delay: 0.5 }}
     >
-      <ToastDemo
+      {/* <ToastDemo
         setOpen={setOpen}
         open={open}
         title={"calm down, this is just a demo , feature coming soon 😁"}
-      />
+      /> */}
 
       <motion.div
         animate={fabControls}
         variants={fabVariants}
         onClick={handleFabClick}
       >
-        <Button size="fab" type="button">
+        <Button size="fab" type="button" onClick={() => setOpenBottomSheet(true)}>
           <svg
             width="22"
             height="22"
@@ -50,9 +55,9 @@ export const FabButton = () => {
             <path
               d="M10.9999 11.0001H2.15781M10.9999 2.15802V11.0001V2.15802ZM10.9999 11.0001V19.8422V11.0001ZM10.9999 11.0001H19.842H10.9999Z"
               stroke="#FAFAFA"
-              stroke-width="2.66667"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2.66667"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </Button>

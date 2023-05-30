@@ -15,7 +15,11 @@ export const Button = ({
   disable,
   type,
 }: ButtonProps) => {
+  
+  
   // handle size
+  
+  
   let sizeClass = "";
   switch (size) {
     case "small":
